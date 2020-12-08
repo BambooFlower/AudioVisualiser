@@ -24,15 +24,14 @@ class Polynomial():
         return inner_y
     
     def calc_rgb(self,y1,y2):
-        x1_ = -1
-        x2 = 1
+        y1 = -1
+        y2 = 1
         
         pass
 
 if __name__ == '__main__':
     L = Polynomial(10,n=3)
-    a=L.calc_rgb(np.array([5,1,2]),
-                 np.array([6,6,6]))
+    a=L.calc_rgb(np.array([5,1,2]),np.array([6,6,6]))
           
     for i in a:
         print(i[0])

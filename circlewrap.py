@@ -27,7 +27,6 @@ class Bar_window():
         self.shift_1 += random.randint(-1, 1)
     
     def add_rotation(self):
-        # print(self.rotation_shift_1)
         for c,bar in enumerate(self.bars):
             if c < self.N:
                 bar.theta += self.rotation_shift_1
@@ -37,8 +36,6 @@ class Bar_window():
                     bar.theta = math.pi*2
             elif bar.theta > math.pi*2:
                     bar.theta = 0
-        # if self.rotation_shift_1 > 2*math.pi:
-        #     self.rotation_shift_1 = 0
         
     
     def add_bar(self):
@@ -106,8 +103,6 @@ class Bar_window():
     def update_bars(self,heights,colours):
         self.window.fill((0,0,0))  # Draw background
         # Update first circle
-        # print()
-        # print(heights[0],heights[98])
         for c,b in enumerate(self.bars):         
             if c < self.N:
                 tmp_height = 0.5*heights[c-1]
@@ -200,8 +195,6 @@ class JukeBox():
         # Number of FFT bar groups
         self.num_groups = n_groups
         self.N = self.num_groups 
-        # self.bars = self.gen_bars()
-        # self.calc_screen()
         self.song = Audio.Audio_fft(songName, M=self.M,group_num=self.num_groups)
         
         self.max_amp = self.song.max_amp
@@ -299,9 +292,6 @@ class Renderer():
             prev_fft = self.J.song.get_fft(prev_slice,grouped=True,localAvg=False)
             # #print(curr_fft[-1],next_fft[-1])
             self.inner_vals = self.interpolate.calc(prev_fft,curr_fft)
-            ## inner_cols = self.interpolate.calc(prev_ccc,ccc)
-            # #print(inner_vals)
-            # #print("\n\n")
             self.J.prev_seconds = seconds
             self.ccc=[]
             for i in range(1,self.n_bars):
@@ -322,15 +312,7 @@ class Renderer():
             self.prev_ccc = self.ccc
         except ValueError:
             return False
-        # # print(self.N,prev_ccc)
-        
-        # # Set colour for each bar
-        # for i in range(1,self.n_bars):
-            # self.bars[i-1].colour = prev_ccc[i-1][frame_count-1]
-            # pass
-        
-            
-        # self.draw_fourier(inner_vals[frame_count-1])
+
         return True
     
     def hsv_to_rgb(self,h, s, v):

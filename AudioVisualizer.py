@@ -122,17 +122,12 @@ class Renderer():
                     #print(prev_seconds,seconds)
                     prev_scale = int(np.floor(self.song.rate/self.M*(prev_seconds)))
                     slice_num = [self.M*(scale),self.M*(scale+1)]
-                    #next_slice = [M*(next_scale),M*(next_scale+1)]
                     prev_slice = [self.M*(prev_scale),self.M*(prev_scale+1)]
 
                     shift += random.randint(-1,1)
                     curr_fft = self.song.get_fft(slice_num,grouped=True,localAvg=False)
                     prev_fft = self.song.get_fft(prev_slice,grouped=True,localAvg=False)
-                    #print(curr_fft[-1],next_fft[-1])
                     inner_vals = self.interpolate.calc(prev_fft,curr_fft)
-                    #inner_cols = self.interpolate.calc(prev_ccc,ccc)
-                    #print(inner_vals)
-                    #print("\n\n")
                     prev_seconds = seconds
                     ccc=[]
                     for i in range(1,self.N):
@@ -148,16 +143,12 @@ class Renderer():
                         if v > 1:
                             v = 1
                         tmp_rgb = self.hsv_to_rgb((shift + i)%self.N/(self.N),0.5,v)
-                        # print(tmp_rgb)
-                        # print(i,prev_ccc[i-1][-1])
-                        # print(prev_ccc[i-1][-1])
                         tmp_vals = self.interpolate.calc(prev_ccc[i-1][-1],
                                                          tmp_rgb)
                         ccc.append(tmp_vals)
                     prev_ccc = ccc
             except ValueError:
                 break
-            # print(self.N,prev_ccc)
             
             # Set colour for each bar
             for i in range(1,self.N):
